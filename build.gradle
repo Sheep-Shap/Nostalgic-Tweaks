@@ -1,0 +1,56 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version '1.17.+'
+    id 'java-library'
+}
+
+group = providers.gradleProperty('maven_group').get()
+version = providers.gradleProperty('mod_version').get() + '+26.3-fabric-port'
+base { archivesName = 'NostalgicTweaks-Fabric' }
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.terraformersmc.com/releases/' }
+}
+
+dependencies {
+    minecraft 'com.mojang:minecraft:26.3'
+    implementation 'net.fabricmc:fabric-loader:0.19.5'
+    implementation 'net.fabricmc.fabric-api:fabric-api:0.160.7+26.3'
+    implementation 'com.terraformersmc:modmenu:21.0.0'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
+    withSourcesJar()
+}
+
+sourceSets {
+    main {
+        java.srcDirs = ['src/main/java', 'fabric/src/main/java']
+        resources.srcDirs = ['src/main/resources', 'fabric/src/main/resources']
+    }
+}
+
+loom {
+    accessWidenerPath = file('src/main/resources/nostalgic_tweaks.classtweaker')
+    mixin { useLegacyMixinAp = false }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 25
+}
+
+processResources {
+    def props = project.properties.findAll { key, value ->
+        key.startsWith('mod_') || key.startsWith('fabric_')
+    }.collectEntries { key, value -> [(key): value.toString()] }
+    props.version = project.version.toString()
+    inputs.properties(props)
+    filesMatching('fabric.mod.json') { expand(props) }
+}
+
+jar {
+    from('LICENSE.txt')
+}
