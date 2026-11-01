@@ -1,0 +1,7 @@
+{
+  "repository": "Nostalgica-Reverie/Nostalgic-Tweaks",
+  "branch": "26.1.x",
+  "commit": "58bf1d2b6ec336cc6547507f525ad0c89e7326f1",
+  "target": "Minecraft Java 26.3, Fabric only",
+  "status": "Initial migration candidate; Java API and mixin compatibility unverified"
+}

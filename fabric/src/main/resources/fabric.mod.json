@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": [
+    "${mod_author}"
+  ],
+  "contributors": [
+    {
+      "name": "See source contributors",
+      "contact": {
+        "homepage": "${mod_credits}"
+      }
+    }
+  ],
+  "contact": {
+    "homepage": "${mod_curse}",
+    "sources": "${mod_source}",
+    "issues": "${mod_issues}"
+  },
+  "license": "${mod_license}",
+  "icon": "assets/nostalgic_tweaks/nt_logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "mod.adrenix.nostalgic.fabric.NostalgicFabric"
+    ],
+    "modmenu": [
+      "mod.adrenix.nostalgic.fabric.client.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "mixin.nostalgic_tweaks-access.json",
+    "mixin.nostalgic_tweaks-duck.json",
+    "mixin.nostalgic_tweaks-required.json"
+  ],
+  "depends": {
+    "fabric-api": ">=${fabric_api_version}",
+    "minecraft": [
+      "${fabric_mc_version_range}"
+    ],
+    "fabricloader": ">=0.19.5",
+    "java": ">=25"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "${mod_discord}",
+        "gui.nostalgic_tweaks.support": "${mod_donate}"
+      }
+    }
+  },
+  "accessWidener": "nostalgic_tweaks.classtweaker"
+}
